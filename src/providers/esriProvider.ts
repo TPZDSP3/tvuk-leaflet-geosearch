@@ -28,7 +28,7 @@ export default class EsriProvider extends AbstractProvider<
   RawResult
 > {
   searchUrl =
-    'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
+    'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
 
   endpoint({ query }: EndpointArgument): string {
     const params = typeof query === 'string' ? { text: query } : query;
