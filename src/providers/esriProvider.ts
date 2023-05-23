@@ -31,6 +31,7 @@ export default class EsriProvider extends AbstractProvider<
     'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
 
   endpoint({ query }: EndpointArgument): string {
+    console.log("Endpoint query: ", query);
     const params = typeof query === 'string' ? { text: query } : query;
     params.f = 'json';
 
