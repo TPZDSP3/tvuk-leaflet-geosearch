@@ -52,22 +52,28 @@ export default class EsriProvider extends AbstractProvider<
     params.f = 'json';
 
     let url = type === RequestType.SEARCH ? this.searchUrl : this.candidateUrl;
-    return this.getUrl(this.searchUrl, params);
+    return this.getUrl(url, params);
   }
 
   parse(result: ParseArgument<RequestResult>): SearchResult<RawResult>[] {
     console.log("PARSE: ", result)
 
-    return result.data.suggestions.map((r) => ({
-      x: 0,
-      y: 0,
-      label: r.text,
-      bounds: [
-        [0, 0], // s, w
-        [0, 0], // n, e
-      ],
-      raw: r,
-    }));
+    if (result.type = RequestType.SEARCH) {
+      console.log("Parse SEARCH: ", result)
+      return result.data.suggestions.map((r) => ({
+        x: 0,
+        y: 0,
+        label: r.text,
+        bounds: [
+          [0, 0], // s, w
+          [0, 0], // n, e
+        ],
+        raw: r,
+      }));
+    } else {
+      console.log("Parse CANDIDATE: ", result)
+      return [];
+    }
 
     /*
     return result.data.locations.map((r) => ({

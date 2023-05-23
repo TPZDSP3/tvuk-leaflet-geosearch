@@ -382,7 +382,7 @@ const Control: SearchControl = {
   },
 
   async onSubmit(query) {
-    console.log("onSubmit");
+    console.log("onSubmit: '" + query + "'");
     const { provider } = this.options;
 
     const results = await provider!.search(query, true);
