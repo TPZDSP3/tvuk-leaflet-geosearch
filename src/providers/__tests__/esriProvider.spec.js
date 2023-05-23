@@ -9,7 +9,7 @@ describe('EsriProvider', () => {
   test('Can fetch results', async () => {
     const provider = new Provider();
 
-    const results = await provider.search({ query: 'Madurodam' });
+    const results = await provider.search({ query: 'Madurodam' }, false);
     const result = results[0];
 
     expect(result.label).toBeTruthy();
