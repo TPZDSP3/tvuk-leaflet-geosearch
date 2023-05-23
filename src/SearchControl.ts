@@ -266,7 +266,7 @@ const Control: SearchControl = {
       'mouseover',
       (e) => {
         e.preventDefault();
-        this.map.zooming.disable();
+        this.map.scrollWheelZoom.disable();
       },
       false,
     );
@@ -275,7 +275,7 @@ const Control: SearchControl = {
       'mouseout',
       (e) => {
         e.preventDefault();
-        this.map.zooming.enable();
+        this.map.scrollWheelZoom.enable();
       },
       false,
     );
