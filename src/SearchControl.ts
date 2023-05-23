@@ -370,9 +370,10 @@ const Control: SearchControl = {
     }
 
     const query = (event.target as HTMLInputElement).value;
+    console.log("autoSearch query: ", query);
     const { provider } = this.options;
 
-    if (query.length) {
+    if (query.length >= 2) {
       let results = await provider!.search({ query }, false);
       results = results.slice(0, this.options.maxSuggestions);
       this.resultList.render(results, this.options.resultFormat);
@@ -382,7 +383,7 @@ const Control: SearchControl = {
   },
 
   async onSubmit(query) {
-    console.log("onSubmit: '" + query + "'");
+    console.log("onSubmit query: ", query);
     const { provider } = this.options;
 
     const results = await provider!.search(query, true);
