@@ -266,19 +266,20 @@ const Control: SearchControl = {
       'mouseover',
       (e) => {
         e.preventDefault();
-        this.map.scrollWheelZoom.disable();
+        this.map.removeControl(this.map.zoomControl);
       },
       false,
     );
-
+/*
     this.searchElement.form.addEventListener(
       'mouseout',
       (e) => {
         e.preventDefault();
-        this.map.scrollWheelZoom.enable();
+        this.map.addControl(this.map.zoomControl);
       },
       false,
     );
+*/
   },
 
   onAdd(map: Map) {
