@@ -60,8 +60,12 @@ export default class EsriProvider extends AbstractProvider<
 
   endpoint({ query, type }: EndpointArgument) {
     console.log("Endpoint query: '" + query + "' " + type);
-    const params = typeof query === 'string' ? { text: query } : query;
+    const params = typeof query === 'string' ? type === RequestType.SEARCH ? { text: query } : { SingleLine: query } : query;
     params.f = 'json';
+    if (type === RequestType.CANDIDATE) {
+      params.outSR=`{"wkid": 27700}`;
+      params.outFields=`*`;
+    }
     console.log("endpoint Params: ", params)
 
     let url = type === RequestType.SEARCH ? this.searchUrl : this.candidateUrl;
