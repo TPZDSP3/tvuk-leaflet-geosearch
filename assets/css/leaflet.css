@@ -133,7 +133,7 @@
   padding: 0 8px;
   border: 1px solid transparent;
 
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -141,6 +141,8 @@
 .leaflet-control-geosearch .results.active {
   padding: 8px 0;
   border-top: 1px solid #c6c6c6;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .leaflet-control-geosearch .results > .active,
