@@ -2,6 +2,7 @@ import AbstractProvider, {
   EndpointArgument,
   ParseArgument,
   SearchResult,
+  RequestType,
 } from './provider';
 
 interface RequestResult {
@@ -29,16 +30,20 @@ export default class EsriProvider extends AbstractProvider<
 > {
   searchUrl =
     'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
+  candidateUrl =
+    'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates';
 
   endpoint({ query, type }: EndpointArgument) {
     console.log("Endpoint query: '" + query + "' " + type);
     const params = typeof query === 'string' ? { text: query } : query;
     params.f = 'json';
 
+    let url = type === RequestType.SEARCH ? this.searchUrl : this.candidateUrl;
     return this.getUrl(this.searchUrl, params);
   }
 
   parse(result: ParseArgument<RequestResult>): SearchResult<RawResult>[] {
+    console.log("PARSE: ", result)
     return result.data.locations.map((r) => ({
       x: r.feature.geometry.x,
       y: r.feature.geometry.y,
