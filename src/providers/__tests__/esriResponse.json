@@ -1,8 +1,8 @@
 {
   "spatialReference": { "wkid": 4326, "latestWkid": 4326 },
-  "locations": [
+  "suggestions": [
     {
-      "name": "Madurodam",
+      "text": "Madurodam",
       "extent": {
         "xmin": -43.34610999999996,
         "ymin": -22.876299999999961,
