@@ -8,12 +8,24 @@ import AbstractProvider, {
 interface RequestResult {
   spatialReference: { wkid: number; latestWkid: number };
   suggestions: RawResult[];
+  candidates: RawResult[];
 }
 
 interface RawResult {
   isCollection: boolean;
   magicKey: string;
   text: string;
+  address: string;
+  location: {
+    x: number;
+    y: number;
+  },
+  extent: {
+    xmin: number;
+    ymin: number;
+    xmax: number;
+    ymax: number;
+  };
 }
 
 /*
@@ -72,7 +84,16 @@ export default class EsriProvider extends AbstractProvider<
       }));
     } else {
       console.log("Parse CANDIDATE: ", result)
-      return [];
+      return result.data.candidates.map((r) => ({
+        x: r.location.x,
+        y: r.location.y,
+        label: r.address,
+        bounds: [
+          [r.extent.ymin, r.extent.xmin], // s, w
+          [r.extent.ymax, r.extent.xmax], // n, e
+        ],
+        raw: r,
+      }));
     }
 
     /*
