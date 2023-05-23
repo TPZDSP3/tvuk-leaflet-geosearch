@@ -15,17 +15,15 @@ interface RawResult {
   isCollection: boolean;
   magicKey: string;
   text: string;
-  address: string;
-  location: {
-    x: number;
-    y: number;
-  },
-  extent: {
-    xmin: number;
-    ymin: number;
-    xmax: number;
-    ymax: number;
-  };
+  attributes: {
+    LongLabel: string;
+    X: number;
+    Y: number;
+    Xmin: number;
+    Xmax: number;
+    Ymin: number;
+    Ymax: number;
+  }
 }
 
 /*
@@ -90,17 +88,35 @@ export default class EsriProvider extends AbstractProvider<
     } else {
       console.log("Parse CANDIDATE: ", result)
       return result.data.candidates.map((r) => ({
-        x: r.location.x,
-        y: r.location.y,
-        label: r.address,
+        x: r.attributes.X,
+        y: r.attributes.Y,
+        label: r.attributes.LongLabel,
         bounds: [
-          [r.extent.ymin, r.extent.xmin], // s, w
-          [r.extent.ymax, r.extent.xmax], // n, e
+          [r.attributes.Ymin, r.attributes.Xmin], // s, w
+          [r.attributes.Ymax, r.attributes.Xmax], // n, e
         ],
         raw: r,
       }));
     }
 
+    /*
+    let barf = {
+      "spatialReference":{"wkid":27700,"latestWkid":27700},
+      "candidates":[
+        { 
+          "attributes": {
+            "LongLabel":"SG5 4EF, GBR",
+            "X":-0.23099997091620139,
+            "Y":52.017249982812103,
+            "Xmin":-0.23199997091620139,
+            "Xmax":-0.22999997091620139,
+            "Ymin":52.016249982812106,
+            "Ymax":52.018249982812101
+          }
+        }
+      ]
+    }
+    */
     /*
     return result.data.locations.map((r) => ({
       x: r.feature.geometry.x,
