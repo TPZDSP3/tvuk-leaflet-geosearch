@@ -58,7 +58,7 @@ export default class EsriProvider extends AbstractProvider<
   parse(result: ParseArgument<RequestResult>): SearchResult<RawResult>[] {
     console.log("PARSE: ", result)
 
-    if (result.type = RequestType.SEARCH) {
+    if (result.type === RequestType.SEARCH) {
       console.log("Parse SEARCH: ", result)
       return result.data.suggestions.map((r) => ({
         x: 0,
