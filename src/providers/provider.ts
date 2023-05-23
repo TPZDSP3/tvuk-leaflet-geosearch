@@ -39,6 +39,7 @@ export interface SearchArgument {
 
 export interface ParseArgument<TData> {
   data: TData;
+  type?: RequestType;
 }
 
 export interface Provider<TRequestResult, TRawResult> {
@@ -80,7 +81,7 @@ export default abstract class AbstractProvider<
   }
 
   async search(options: SearchArgument, candidate: boolean): Promise<SearchResult<TRawResult>[]> {
-    console.log("Provider search");
+    console.log("Provider search: ", options);
     const url = this.endpoint({
       query: options.query,
       type: candidate ? RequestType.CANDIDATE : RequestType.SEARCH,
@@ -88,6 +89,6 @@ export default abstract class AbstractProvider<
 
     const request = await fetch(url);
     const json: TRequestResult = await request.json();
-    return this.parse({ data: json });
+    return this.parse({ data: json, type: candidate ? RequestType.CANDIDATE : RequestType.SEARCH});
   }
 }

@@ -7,6 +7,18 @@ import AbstractProvider, {
 
 interface RequestResult {
   spatialReference: { wkid: number; latestWkid: number };
+  suggestions: RawResult[];
+}
+
+interface RawResult {
+  isCollection: boolean;
+  magicKey: string;
+  text: string;
+}
+
+/*
+interface RequestResult {
+  spatialReference: { wkid: number; latestWkid: number };
   locations: RawResult[];
 }
 
@@ -23,6 +35,7 @@ interface RawResult {
     attributes: { Score: number; Addr_Type: string };
   };
 }
+*/
 
 export default class EsriProvider extends AbstractProvider<
   RequestResult,
@@ -44,6 +57,19 @@ export default class EsriProvider extends AbstractProvider<
 
   parse(result: ParseArgument<RequestResult>): SearchResult<RawResult>[] {
     console.log("PARSE: ", result)
+
+    return result.data.suggestions.map((r) => ({
+      x: 0,
+      y: 0,
+      label: r.text,
+      bounds: [
+        [0, 0], // s, w
+        [0, 0], // n, e
+      ],
+      raw: r,
+    }));
+
+    /*
     return result.data.locations.map((r) => ({
       x: r.feature.geometry.x,
       y: r.feature.geometry.y,
@@ -54,5 +80,6 @@ export default class EsriProvider extends AbstractProvider<
       ],
       raw: r,
     }));
+    */
   }
 }
