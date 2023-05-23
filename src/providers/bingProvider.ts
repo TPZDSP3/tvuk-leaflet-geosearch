@@ -74,7 +74,7 @@ export default class BingProvider extends AbstractProvider<
     }));
   }
 
-  async search({ query }: SearchArgument): Promise<SearchResult<RawResult>[]> {
+  async search({ query }: SearchArgument, candidate: boolean): Promise<SearchResult<RawResult>[]> {
     const jsonp = `BING_JSONP_CB_${Date.now()}`;
     const json = await createScriptElement<RequestResult>(
       this.endpoint({ query, jsonp }),

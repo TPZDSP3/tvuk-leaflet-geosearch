@@ -106,12 +106,12 @@ export default class OpenCageProvider extends AbstractProvider<
     }));
   }
 
-  async search(options: SearchArgument): Promise<SearchResult<RawResult>[]> {
+  async search(options: SearchArgument, candidate: boolean): Promise<SearchResult<RawResult>[]> {
     // opencage returns a 400 error when query length < 2
     if (options.query.length < 2) {
       return [];
     }
 
-    return super.search(options);
+    return super.search(options, false);
   }
 }

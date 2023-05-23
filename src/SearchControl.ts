@@ -373,7 +373,7 @@ const Control: SearchControl = {
     const { provider } = this.options;
 
     if (query.length) {
-      let results = await provider!.search({ query });
+      let results = await provider!.search({ query }, false);
       results = results.slice(0, this.options.maxSuggestions);
       this.resultList.render(results, this.options.resultFormat);
     } else {
@@ -385,7 +385,7 @@ const Control: SearchControl = {
     console.log("onSubmit");
     const { provider } = this.options;
 
-    const results = await provider!.search(query);
+    const results = await provider!.search(query, true);
 
     if (results && results.length > 0) {
       this.showResult(results[0], query);

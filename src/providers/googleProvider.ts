@@ -66,7 +66,7 @@ export default class GoogleProvider extends AbstractProvider<
   }
 
   async search(
-    options: SearchArgument,
+    options: SearchArgument, candidate: boolean
   ): Promise<SearchResult<google.maps.GeocoderResult>[]> {
     const geocoder = this.geocoder || (await this.loader);
 

@@ -25,6 +25,7 @@ export interface ProviderOptions {
 export enum RequestType {
   SEARCH,
   REVERSE,
+  CANDIDATE,
 }
 
 export interface EndpointArgument {
@@ -46,7 +47,7 @@ export interface Provider<TRequestResult, TRawResult> {
   endpoint(options: EndpointArgument): string;
   getParamString(params: ProviderParams): string;
   parse(response: ParseArgument<TRequestResult>): SearchResult<TRawResult>[];
-  search(options: SearchArgument): Promise<SearchResult<TRawResult>[]>;
+  search(options: SearchArgument, candidate: boolean): Promise<SearchResult<TRawResult>[]>;
 }
 
 export default abstract class AbstractProvider<
@@ -78,10 +79,11 @@ export default abstract class AbstractProvider<
     return `${url}?${this.getParamString(params)}`;
   }
 
-  async search(options: SearchArgument): Promise<SearchResult<TRawResult>[]> {
+  async search(options: SearchArgument, candidate: boolean): Promise<SearchResult<TRawResult>[]> {
+    console.log("Provider search");
     const url = this.endpoint({
       query: options.query,
-      type: RequestType.SEARCH,
+      type: candidate ? RequestType.CANDIDATE : RequestType.SEARCH,
     });
 
     const request = await fetch(url);

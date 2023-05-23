@@ -119,7 +119,7 @@ export default class Provider extends AbstractProvider<
     }));
   }
 
-  async search({ query }: SearchArgument): Promise<SearchResult<RawResult>[]> {
+  async search({ query }: SearchArgument, candidate: boolean): Promise<SearchResult<RawResult>[]> {
     const params = typeof query === 'string' ? { query } : query;
 
     const request = await fetch(this.endpoint(), {
