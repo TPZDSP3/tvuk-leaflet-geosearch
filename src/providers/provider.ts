@@ -81,7 +81,6 @@ export default abstract class AbstractProvider<
   }
 
   async search(options: SearchArgument, candidate: boolean): Promise<SearchResult<TRawResult>[]> {
-    console.log("Provider search: ", options);
     const url = this.endpoint({
       query: options.query,
       type: candidate ? RequestType.CANDIDATE : RequestType.SEARCH,
