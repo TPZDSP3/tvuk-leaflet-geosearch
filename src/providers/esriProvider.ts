@@ -62,6 +62,7 @@ export default class EsriProvider extends AbstractProvider<
     console.log("Endpoint query: '" + query + "' " + type);
     const params = typeof query === 'string' ? { text: query } : query;
     params.f = 'json';
+    console.log("endpoint Params: ", params)
 
     let url = type === RequestType.SEARCH ? this.searchUrl : this.candidateUrl;
     return this.getUrl(url, params);
