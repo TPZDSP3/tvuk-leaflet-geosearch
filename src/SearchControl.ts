@@ -261,6 +261,24 @@ const Control: SearchControl = {
       },
       false,
     );
+
+    this.searchElement.form.addEventListener(
+      'mouseover',
+      (e) => {
+        e.preventDefault();
+        this.map.zooming.disable();
+      },
+      false,
+    );
+
+    this.searchElement.form.addEventListener(
+      'mouseout',
+      (e) => {
+        e.preventDefault();
+        this.map.zooming.enable();
+      },
+      false,
+    );
   },
 
   onAdd(map: Map) {
