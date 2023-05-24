@@ -258,6 +258,7 @@ const Control: SearchControl = {
       'click',
       (e) => {
         e.preventDefault();
+        this.map.scrollWheelZoom.enable();
       },
       false,
     );
