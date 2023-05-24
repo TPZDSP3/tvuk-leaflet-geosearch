@@ -270,7 +270,7 @@ const Control: SearchControl = {
       },
       false,
     );
-/*
+
     this.searchElement.form.addEventListener(
       'mouseout',
       (e) => {
@@ -279,7 +279,6 @@ const Control: SearchControl = {
       },
       false,
     );
-*/
   },
 
   onAdd(map: Map) {
