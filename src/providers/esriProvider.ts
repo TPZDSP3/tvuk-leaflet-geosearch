@@ -15,6 +15,7 @@ interface RawResult {
   isCollection: boolean;
   magicKey: string;
   text: string;
+  address: string;
   attributes: {
     LongLabel: string;
     X: number;
@@ -63,7 +64,7 @@ export default class EsriProvider extends AbstractProvider<
       return result.data.candidates.map((r) => ({
         x: r.attributes.X,
         y: r.attributes.Y,
-        label: r.attributes.LongLabel,
+        label: r.address,
         bounds: [
           [r.attributes.Ymin, r.attributes.Xmin], // s, w
           [r.attributes.Ymax, r.attributes.Xmax], // n, e
